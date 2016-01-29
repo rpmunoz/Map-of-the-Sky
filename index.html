@@ -18,8 +18,8 @@
       require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
         function(Map, Tiled) {
           map = new Map("map",{
-            center: [-0.45,-14.5],
-            zoom: 12
+            center: [-14.5,-0.45],
+            zoom: 10
           });
 
           var tiled = new Tiled("http://tiles.arcgis.com/tiles/g2TonOxuRkIqSOFx/arcgis/rest/services/Galactic_Plane_Bright/MapServer");
