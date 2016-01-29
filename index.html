@@ -17,7 +17,10 @@
     
       require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
         function(Map, Tiled) {
-          map = new Map("map");
+          map = new Map("map",{
+          center: [-14.35, -.45], // longitude, latitude
+          zoom: 12
+        });
 
           var tiled = new Tiled("http://tiles.arcgis.com/tiles/g2TonOxuRkIqSOFx/arcgis/rest/services/Galactic_Plane_Bright/MapServer");
           map.addLayer(tiled);
