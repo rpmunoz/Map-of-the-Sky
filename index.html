@@ -1,34 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title></title>
-    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
-    <style>
-      html, body, #map {
-        height: 100%; width: 100%; margin: 0; padding: 0; 
-      }
-    </style>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no"
+  />
+  <title>Vector tiles - 4.0beta3</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    #homediv {
+      position: absolute;
+      top: 100px;
+      left: 15px;
+      z-index: 50;
+    }
+  </style>
 
-    <script src="https://js.arcgis.com/3.15/"></script>
-    <script>
-      var map;
-    
-      require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
-        function(Map, Tiled) {
-          map = new Map("map",{
-            center: [-14.5,-0.36],
-            zoom: 10
-          });
+  <link rel="stylesheet" href="https://js.arcgis.com/4.0beta3/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.0beta3/"></script>
 
-          var tiled = new Tiled("http://tiles.arcgis.com/tiles/g2TonOxuRkIqSOFx/arcgis/rest/services/Galactic_Plane_Bright/MapServer");
-          map.addLayer(tiled);
-        }
-      );
-    </script>
-  </head>
-  <body>
-    <div id="map"></div>
-  </body>
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/ArcGISTiledLayer",
+      "esri/widgets/Home",
+      "esri/widgets/Home/HomeViewModel",
+      "dojo/domReady!"
+    ], function(Map, MapView, ArcGISTiledLayer, Home, HomeVM) {
+
+      var map = new Map();
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-14.5,-0.36],
+        zoom: 10
+      });
+
+      var tileLyr = new ArcGISTiledLayer({
+        url: "//tiles.arcgis.com/tiles/g2TonOxuRkIqSOFx/arcgis/rest/services/Galactic_Plane_Bright/MapServer"
+      });
+      map.add(tileLyr);
+      
+      var homeBtn = new Home({
+        viewModel: new HomeVM({
+          view: view
+        })
+      }, "homediv");
+      homeBtn.startup();
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv">
+    <div id="homediv"></div>
+  </div>
+</body>
 </html>
